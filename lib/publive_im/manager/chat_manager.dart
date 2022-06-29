@@ -4,21 +4,7 @@ import 'package:im_flutter_sdk/im_flutter_sdk.dart';
 
 class ChatManager {
   static final ChatManager _instance = ChatManager._init();
-  // //连接状态管理器
-  // static final ChatConnectionManager connectionManager =
-  //     ChatConnectionManager.init();
-  // //联系人管理器
-  // static final ChatContactManager contactManager = ChatContactManager.init();
-  // //聊天房间管理器
-  // static final ChatRoomManager chatRoomManager = ChatRoomManager.init();
-  // //群组管理器
-  // static final ChatGroupManager groupManager = ChatGroupManager.init();
-  // //用户相关管理器
-  // static final ChatUserManager userManager = ChatUserManager.init();
-  // //会话管理器
-  // static final ChatConversationManager conversationManager =
-  //     ChatConversationManager.init();
-  // //聊天消息管理器
+
   static final ChatMessageManager messageManager = ChatMessageManager.init();
   factory ChatManager() {
     return _instance;

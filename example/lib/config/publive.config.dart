@@ -7,10 +7,7 @@ String get appId {
 }
 
 String get appKey {
-  // Allow pass an `appId` as an environment variable with name `TEST_APP_ID` by using --dart-define
   return '1102220607107224#key-customers';
-  // return const String.fromEnvironment('ab1ebae85fde41789442aeef60889e77',
-  //     defaultValue: '<YOUR_APP_ID>');
 }
 
 /// Please refer to https://docs.agora.io/en/Agora%20Platform/token
