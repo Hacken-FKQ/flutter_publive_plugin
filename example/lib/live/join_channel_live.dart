@@ -7,6 +7,7 @@ import 'package:flutter_publive/publive_live/manager/rtc_remote_view.dart';
 import 'package:flutter_publive_example/config/publive.config.dart' as config;
 import 'package:flutter_publive_example/log_sink.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:agora_rtc_engine/rtc_engine.dart';
 
 /// MultiChannel Example
 class JoinChannelLive extends StatefulWidget {
@@ -47,12 +48,47 @@ class _State extends State<JoinChannelLive> with RtcEngineListener {
     logSink.log('err $err');
   }
 
-  Future<void> _initEngine() async {
-    RtcEngineManager().initEngine(config.appId);
+  @override
+  void joinChannelSuccess(String channel, int uid, int elapsed) {
+    logSink.log('joinChannelSuccess $channel $uid $elapsed');
+    setState(() {
+      isJoined = true;
+    });
+  }
 
-    RtcEngineManager().addListener(this);
-    // RtcEngineManager().enableVideo();
-    // RtcEngineManager().startPreview();
+  @override
+  void userJoined(int uid, int elapsed) {
+    logSink.log('userJoined  $uid $elapsed');
+    setState(() {
+      remoteUid.add(uid);
+    });
+  }
+
+  @override
+  void userOffline(int uid, UserOfflineReason reason) {
+    logSink.log('userOffline  $uid $reason');
+    setState(() {
+      remoteUid.removeWhere((element) => element == uid);
+    });
+  }
+
+  @override
+  void leaveChannel(RtcStats stats) {
+    logSink.log('leaveChannel ${stats.toJson()}');
+    setState(() {
+      isJoined = false;
+      remoteUid.clear();
+    });
+  }
+
+  Future<void> _initEngine() async {
+    RtcEngineManager().initEngine(config.appId).then((value) {
+      RtcEngineManager().addListener(this);
+      RtcEngineManager().enableVideo();
+      RtcEngineManager().startPreview();
+      RtcEngineManager().setChannelProfile(ChannelProfile.LiveBroadcasting);
+      RtcEngineManager().setClientRole(ClientRole.Broadcaster);
+    });
   }
 
   _joinChannel() async {
@@ -75,7 +111,7 @@ class _State extends State<JoinChannelLive> with RtcEngineListener {
         switchCamera = !switchCamera;
       });
     }).catchError((err) {
-      // logSink.log('switchCamera $err');
+      logSink.log('switchCamera $err');
     });
   }
 

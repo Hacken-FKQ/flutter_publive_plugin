@@ -25,6 +25,12 @@ class ChatManager {
   }
   ChatManager._init() {}
 
+
+  ///
+  /// Initializes the SDK.
+  ///
+  /// Param [options] The configurations: {@link EMOptions}. Ensure that you set this parameter.
+  ///
   static Future<bool> configure(String? appKey) async {
     if (kIsWeb) {
       return true;
@@ -46,21 +52,68 @@ class ChatManager {
     }
   }
 
+  ///
+  /// Register a new user.
+  ///
+  /// Param [username] The username. The maximum length is 64 characters. Ensure that you set this parameter.
+  /// Supported characters include the 26 English letters (a-z), the ten numbers (0-9), the underscore (_), the hyphen (-),
+  /// and the English period (.). This parameter is case insensitive, and upper-case letters are automatically changed to low-case ones.
+  /// If you want to set this parameter as a regular expression, set it as ^[a-zA-Z0-9_-]+$.
+  ///
+  /// Param [password] The password. The maximum length is 64 characters. Ensure that you set this parameter.
+  ///
+  /// **Throws**  A description of the exception. See {@link EMError}.
+  ///
   Future<void> createAccount(String username, String password) async {
     await EMClient.getInstance.createAccount(username, password);
   }
 
+  ///
+  /// An app user logs in to the chat server with a password or token.
+  ///
+  /// Param [username] The username.
+  ///
+  /// Param [pwdOrToken] The password or token.
+  ///
+  /// Param [isPassword] Whether to log in with password or token.
+  /// `true`: (default) Log in with password.
+  /// `false`: Log in with token.
+  ///
+  /// **Throws**  A description of the exception. See {@link EMError}.
+  ///
   Future<void> login(String username, String pwdOrToken,
       [bool isPassword = true]) async {
     await EMClient.getInstance.login(username, pwdOrToken, isPassword);
   }
 
+  ///
+  /// An app user logs out.
+  ///
+  /// Param [unbindDeviceToken] Whether to unbind the token when logout.
+  ///
+  /// `true` (default) Yes.
+  /// `false` No.
+  ///
+  /// **Throws**  A description of the exception. See {@link EMError}.
+  ///
   Future<void> logout([
     bool unbindDeviceToken = true,
   ]) async {
     await EMClient.getInstance.logout(unbindDeviceToken);
   }
 
+  ///
+  /// Creates a text message for sending.
+  ///
+  /// Param [username] The ID of the message recipient.
+  /// - For a one-to-one chat, it is the username of the peer user.
+  /// - For a group chat, it is the group ID.
+  /// - For a chat room, it is the chat room ID.
+  ///
+  /// Param [content] The text content.
+  ///
+  /// **Return** The message instance.
+  ///
   EMMessage createTxtSendMessage({
     required String username,
     required String content,
@@ -71,27 +124,20 @@ class ChatManager {
     );
   }
 
+  ///
+  /// Sends a message.
+  ///
+  /// **Note**
+  /// For attachment messages such as voice, image, or video messages, the SDK automatically uploads the attachment.
+  /// You can set whether to upload the attachment to the chat sever using {@link EMOptions#serverTransfer(boolean)}.
+  ///
+  /// To listen for the status of sending messages, call {@link EMMessage#setMessageStatusListener(EMMessageStatusListener)}.
+  ///
+  /// Param [message] The message object to be sent: {@link EMMessage}.
+  ///
+  /// **Throws**  A description of the exception. See {@link EMError}.
+  ///
   Future<EMMessage> sendMessage(EMMessage message) async {
     return EMClient.getInstance.chatManager.sendMessage(message);
   }
-
-  sendMsg() {
-    var msg = EMMessage.createTxtSendMessage(
-      username: 'fkq1',
-      content: 'fkqlllcontent',
-    );
-    msg.setMessageStatusCallBack(MessageStatusCallBack(
-      onSuccess: () {
-        print("send message: ---");
-      },
-      onError: (e) {
-        print(
-          "send message failed, code: ${e.code}, desc: ${e.description}",
-        );
-      },
-    ));
-    EMClient.getInstance.chatManager.sendMessage(msg);
-  }
-
-
 }

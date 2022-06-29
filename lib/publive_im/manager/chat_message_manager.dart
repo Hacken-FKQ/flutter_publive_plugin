@@ -21,8 +21,6 @@ class ChatMessageManager implements EMChatManagerListener {
     }
   }
 
-
-
   /* ============================ ChatManagerListener ============================*/
   @override
   void onCmdMessagesReceived(List<EMMessage> messages) {
@@ -77,12 +75,6 @@ class ChatMessageManager implements EMChatManagerListener {
   void onMessagesReceived(List<EMMessage> messages) {
     for (var listener in _messageListeners) {
       listener.onMessagesReceived(messages);
-    }
-  }
-
-  void _messageSendSuccess(EMMessage message) {
-    for (var listener in _messageListeners) {
-      listener.onMessageSendSuccess(message);
     }
   }
 }
