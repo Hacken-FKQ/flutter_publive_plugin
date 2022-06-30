@@ -1,7 +1,7 @@
 name: flutter_publive
 description: A new flutter plugin project.
 version: 0.0.1
-homepage:
+homepage: https://github.com/Hacken-FKQ/flutter_publive_plugin.git
 
 environment:
   sdk: ">=2.16.2 <3.0.0"
