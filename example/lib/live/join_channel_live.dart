@@ -88,6 +88,8 @@ class _State extends State<JoinChannelLive> with RtcEngineListener {
       RtcEngineManager().startPreview();
       RtcEngineManager().setChannelProfile(ChannelProfile.LiveBroadcasting);
       RtcEngineManager().setClientRole(ClientRole.Broadcaster);
+      // Audience
+      // RtcEngineManager().setClientRole(ClientRole.Audience);
     });
   }
 

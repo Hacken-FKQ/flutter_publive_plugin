@@ -1,6 +1,6 @@
 name: flutter_publive
 description: flutter_ Publive is a plug-in focusing on the social foundation.Welcome to communicate！
-version: 2.1.2
+version: 3.1.8
 homepage: https://github.com/Hacken-FKQ/flutter_publive_plugin.git
 
 environment:
@@ -12,11 +12,15 @@ dependencies:
     sdk: flutter
 
   nertc: 3.9.0
+  rongcloud_rtc_wrapper_plugin: 5.1.5+5
   flutter_lints: ^1.0.0
   agora_rtc_engine: 5.2.0
+  flutter_teachstack_sdk: 0.1.3
   livechatt: 1.4.0
   im_flutter_sdk: 3.9.0+1
+  flutter_live_data: 2.1.0
   zego_express_engine: 2.0.0
+  rtmp_publisher: 0.3.7
 
 dev_dependencies:
   flutter_test:

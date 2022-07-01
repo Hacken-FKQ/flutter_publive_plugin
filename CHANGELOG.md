@@ -11,3 +11,9 @@
 
 * TODO: Describe initial release.
 * fix bug
+
+## 3.1.8
+
+* TODO: Describe initial release.
+* fix bug
+* Optimize architecture and module integration
