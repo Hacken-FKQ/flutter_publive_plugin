@@ -1,6 +1,7 @@
 # flutter_publive
 
 A new flutter plugin project.
+flutter_ Publive is a plug-in focusing on the social foundation.Welcome to communicate！
 
 ## Getting Started
 
